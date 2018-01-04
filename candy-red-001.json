@@ -1,0 +1,113 @@
+[
+    {
+        "id": "64aae9e3.34bdd",
+        "type": "rpi-sensehat in",
+        "z": "3777fbf7.387404",
+        "name": "Environment / 環境センサー",
+        "motion": false,
+        "env": true,
+        "stick": false,
+        "x": 340,
+        "y": 120,
+        "wires": [
+            [
+                "efa9aeb3.46b318"
+            ]
+        ]
+    },
+    {
+        "id": "470fd4d8.20feb4",
+        "type": "rpi-sensehat out",
+        "z": "3777fbf7.387404",
+        "name": "LED",
+        "x": 590,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "efa9aeb3.46b318",
+        "type": "debug",
+        "z": "3777fbf7.387404",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 610,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "1df98486.b0ef43",
+        "type": "inject",
+        "z": "3777fbf7.387404",
+        "name": "",
+        "topic": "",
+        "payload": "Hi CANDY!",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 280,
+        "y": 500,
+        "wires": [
+            [
+                "470fd4d8.20feb4"
+            ]
+        ]
+    },
+    {
+        "id": "15267b6f.6054f5",
+        "type": "rpi-sensehat in",
+        "z": "3777fbf7.387404",
+        "name": "Joystick / ジョイスティック",
+        "motion": false,
+        "env": false,
+        "stick": true,
+        "x": 340,
+        "y": 240,
+        "wires": [
+            [
+                "a9136f01.a56648",
+                "97e0931f.68e23"
+            ]
+        ]
+    },
+    {
+        "id": "a9136f01.a56648",
+        "type": "debug",
+        "z": "3777fbf7.387404",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 610,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "82be6e9d.102708",
+        "type": "CANDY EGG websocket in",
+        "z": "3777fbf7.387404",
+        "name": "",
+        "path": "",
+        "wholemsg": "false",
+        "x": 340,
+        "y": 400,
+        "wires": [
+            [
+                "470fd4d8.20feb4"
+            ]
+        ]
+    },
+    {
+        "id": "97e0931f.68e23",
+        "type": "CANDY EGG websocket out",
+        "z": "3777fbf7.387404",
+        "name": "",
+        "path": "",
+        "wholemsg": "false",
+        "x": 570,
+        "y": 300,
+        "wires": []
+    }
+]

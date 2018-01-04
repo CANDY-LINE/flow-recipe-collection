@@ -1,0 +1,109 @@
+[
+    {
+        "id": "60dd2064.f31df8",
+        "type": "CANDY RED websocket in",
+        "z": "40475834.d812e",
+        "name": "Joystick / ジョイスティック",
+        "server": "7af108ed.1d4d28",
+        "wholemsg": "false",
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [
+                "bb7a20a6.c1e938"
+            ]
+        ]
+    },
+    {
+        "id": "a7463744.2e7a48",
+        "type": "CANDY RED websocket out",
+        "z": "40475834.d812e",
+        "name": "LED",
+        "server": "1a7652f0.1cffcd",
+        "wholemsg": "false",
+        "x": 630,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "bb7a20a6.c1e938",
+        "type": "ui_text",
+        "z": "40475834.d812e",
+        "group": "d23191eb.149ce8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Joystick / ジョイスティック",
+        "format": "{{msg.payload.key}}",
+        "layout": "row-spread",
+        "x": 700,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "a7e440fa.c733d8",
+        "type": "ui_text_input",
+        "z": "40475834.d812e",
+        "name": "",
+        "label": "LED Text",
+        "group": "d23191eb.149ce8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "1000",
+        "topic": "",
+        "x": 280,
+        "y": 380,
+        "wires": [
+            [
+                "dfa6b05d.62a87",
+                "a7463744.2e7a48"
+            ]
+        ]
+    },
+    {
+        "id": "dfa6b05d.62a87",
+        "type": "debug",
+        "z": "40475834.d812e",
+        "name": "",
+        "active": true,
+        "console": "false",
+        "complete": "false",
+        "x": 650,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "7af108ed.1d4d28",
+        "type": "CANDY RED websocket listener",
+        "z": "",
+        "path": "/joystick",
+        "ignoreRejectError": "false"
+    },
+    {
+        "id": "1a7652f0.1cffcd",
+        "type": "CANDY RED websocket listener",
+        "z": "",
+        "path": "/led",
+        "ignoreRejectError": "false"
+    },
+    {
+        "id": "d23191eb.149ce8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Default",
+        "tab": "70f0c140.e79668",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "70f0c140.e79668",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    }
+]
