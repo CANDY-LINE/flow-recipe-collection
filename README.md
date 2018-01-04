@@ -15,3 +15,8 @@ The prerequisite hardware/devices are as follows.
 - [CANDY Pi Lite](https://translate.google.com/translate?hl=ja&sl=auto&tl=en&u=https%3A%2F%2Fwww.candy-line.io%2F製品一覧%2Fcandy-pi-lite%2F) 3G (or LTE, available only in Japan)
 - USB cable (micro USB to USB) for power supply or AC adaptor(OD:5.5mm x ID:2.1mm)
 - Ethernet cable (if any) to access Raspberry Pi 3 via intranet
+
+## Revision History
+
+* 1.0.0
+  - Initial release
