@@ -18,5 +18,8 @@ The prerequisite hardware/devices are as follows.
 
 ## Revision History
 
+* 1.1.0
+  - Add a fixed ip address config file
+
 * 1.0.0
   - Initial release
