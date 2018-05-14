@@ -1,0 +1,382 @@
+[
+    {
+        "id": "e910db83.a3ef68",
+        "type": "tab",
+        "label": "CANDY EGG to conect+",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c43a5fc.d22a1a",
+        "type": "http request",
+        "z": "e910db83.a3ef68",
+        "name": "conect+ Cloud",
+        "method": "POST",
+        "ret": "obj",
+        "url": "https://api.conect.plus/v1/API_KEY_HERE/data",
+        "tls": "",
+        "x": 600,
+        "y": 320,
+        "wires": [
+            [
+                "f503e5ee.6ef88"
+            ]
+        ]
+    },
+    {
+        "id": "12dc5ec.ba974a1",
+        "type": "CANDY RED websocket in",
+        "z": "e910db83.a3ef68",
+        "name": "Data Entry",
+        "server": "dcc64308.15a84",
+        "wholemsg": "false",
+        "x": 180,
+        "y": 60,
+        "wires": [
+            [
+                "a6b33e9f.b8d96"
+            ]
+        ]
+    },
+    {
+        "id": "a6b33e9f.b8d96",
+        "type": "change",
+        "z": "e910db83.a3ef68",
+        "name": "Transform",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.managerId",
+                "pt": "msg",
+                "to": "payload.deviceUuid",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.received_timestamp",
+                "pt": "msg",
+                "to": "payload.sensingAt",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.samples[0]",
+                "pt": "msg",
+                "to": "payload.value1",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "a4154a2.7fe2cb8"
+            ]
+        ]
+    },
+    {
+        "id": "a4154a2.7fe2cb8",
+        "type": "function",
+        "z": "e910db83.a3ef68",
+        "name": "floor(value1 / 10) / 10",
+        "func": "msg.payload.value1 = Math.floor(msg.payload.value1/10)/10;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 220,
+        "y": 200,
+        "wires": [
+            [
+                "770ed527.855a84"
+            ]
+        ]
+    },
+    {
+        "id": "770ed527.855a84",
+        "type": "function",
+        "z": "e910db83.a3ef68",
+        "name": "Truncate millisec",
+        "func": "msg.payload.sensingAt = msg.payload.sensingAt.substring(0, 19);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 200,
+        "wires": [
+            [
+                "787cbae3.76225c"
+            ]
+        ]
+    },
+    {
+        "id": "787cbae3.76225c",
+        "type": "moment",
+        "z": "e910db83.a3ef68",
+        "name": "JST to UTC",
+        "topic": "",
+        "input": "payload.sensingAt",
+        "inputType": "msg",
+        "inTz": "Asia/Tokyo",
+        "adjAmount": 0,
+        "adjType": "days",
+        "adjDir": "add",
+        "format": "YYYY-MM-DD HH:mm:ss",
+        "locale": "POSIX",
+        "output": "payload.sensingAt",
+        "outputType": "msg",
+        "outTz": "ETC/GMT",
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "51c3059a.ad27cc"
+            ]
+        ]
+    },
+    {
+        "id": "51c3059a.ad27cc",
+        "type": "switch",
+        "z": "e910db83.a3ef68",
+        "name": "Resolve Mote Number",
+        "property": "payload.mac",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ff-ff-ff-ff-ff-ff-ff-6f",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ff-ff-ff-ff-ff-ff-ff-a8",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ff-ff-ff-ff-ff-ff-ff-99",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ff-ff-ff-ff-ff-ff-ff-50",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ff-ff-ff-ff-ff-ff-ff-ef",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "ff-ff-ff-ff-ff-ff-9c-8e",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 6,
+        "x": 220,
+        "y": 340,
+        "wires": [
+            [
+                "881dc6bc.d24b2"
+            ],
+            [
+                "294286ea.999312"
+            ],
+            [
+                "f647fd3b.bd9d9"
+            ],
+            [
+                "78225d03.d58834"
+            ],
+            [
+                "b0fcbca1.c1b148"
+            ],
+            [
+                "eb68331b.118a68"
+            ]
+        ]
+    },
+    {
+        "id": "881dc6bc.d24b2",
+        "type": "change",
+        "z": "e910db83.a3ef68",
+        "name": "Mote1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.key",
+                "pt": "msg",
+                "to": "mote1Temp",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "c43a5fc.d22a1a"
+            ]
+        ]
+    },
+    {
+        "id": "294286ea.999312",
+        "type": "change",
+        "z": "e910db83.a3ef68",
+        "name": "Mote2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.key",
+                "pt": "msg",
+                "to": "mote2Temp",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "c43a5fc.d22a1a"
+            ]
+        ]
+    },
+    {
+        "id": "f647fd3b.bd9d9",
+        "type": "change",
+        "z": "e910db83.a3ef68",
+        "name": "Mote3",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.key",
+                "pt": "msg",
+                "to": "mote3Temp",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 400,
+        "wires": [
+            [
+                "c43a5fc.d22a1a"
+            ]
+        ]
+    },
+    {
+        "id": "78225d03.d58834",
+        "type": "change",
+        "z": "e910db83.a3ef68",
+        "name": "Mote4",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.key",
+                "pt": "msg",
+                "to": "mote4Temp",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 440,
+        "wires": [
+            [
+                "c43a5fc.d22a1a"
+            ]
+        ]
+    },
+    {
+        "id": "b0fcbca1.c1b148",
+        "type": "change",
+        "z": "e910db83.a3ef68",
+        "name": "Mote5",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.key",
+                "pt": "msg",
+                "to": "mote5Temp",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 480,
+        "wires": [
+            [
+                "c43a5fc.d22a1a"
+            ]
+        ]
+    },
+    {
+        "id": "f503e5ee.6ef88",
+        "type": "debug",
+        "z": "e910db83.a3ef68",
+        "name": "conect+ results",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 600,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "eb68331b.118a68",
+        "type": "change",
+        "z": "e910db83.a3ef68",
+        "name": "COG1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.key",
+                "pt": "msg",
+                "to": "mote5Temp",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dcc64308.15a84",
+        "type": "CANDY RED websocket listener",
+        "z": "",
+        "path": "/data",
+        "ignoreRejectError": "false"
+    }
+]

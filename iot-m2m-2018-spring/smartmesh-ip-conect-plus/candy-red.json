@@ -1,0 +1,233 @@
+[
+    {
+        "id": "d5c45f60.19616",
+        "type": "tab",
+        "label": "SmartMesh Example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "1bc2ed92.69ca2a",
+        "type": "debug",
+        "z": "d5c45f60.19616",
+        "name": "Notifications",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 470,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "dce886a2.6ddbb",
+        "type": "catch",
+        "z": "d5c45f60.19616",
+        "name": "",
+        "scope": null,
+        "x": 264,
+        "y": 490,
+        "wires": [
+            [
+                "f6a97f32.264088"
+            ]
+        ]
+    },
+    {
+        "id": "f6a97f32.264088",
+        "type": "debug",
+        "z": "d5c45f60.19616",
+        "name": "Error",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 450,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "e8bf356e.e2e668",
+        "type": "debug",
+        "z": "d5c45f60.19616",
+        "name": "Results",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 460,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "6b7edab9.6e69e4",
+        "type": "inject",
+        "z": "d5c45f60.19616",
+        "name": "LED ON (ff-ff-ff-ff-ff-ff-ff-6f)",
+        "topic": "",
+        "payload": "{\"mac\":\"ff-ff-ff-ff-ff-ff-ff-6f\",\"id\":\"led_on_2\",\"command\":\"PUT\",\"address\":\"/3/2\",\"tags\":[{\"tag\":0,\"format\":\"byte\",\"value\":\"1\"}]}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 192,
+        "y": 58,
+        "wires": [
+            [
+                "6f17cf2c.1ed02"
+            ]
+        ]
+    },
+    {
+        "id": "193b2720.9fc021",
+        "type": "inject",
+        "z": "d5c45f60.19616",
+        "name": "LED OFF (ff-ff-ff-ff-ff-ff-ff-6f)",
+        "topic": "",
+        "payload": "{\"mac\":\"ff-ff-ff-ff-ff-ff-ff-6f\",\"id\":\"led_off_2\",\"command\":\"PUT\",\"address\":\"/3/2\",\"tags\":[{\"tag\":0,\"format\":\"byte\",\"value\":\"00\"}]}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 192,
+        "y": 96,
+        "wires": [
+            [
+                "6f17cf2c.1ed02"
+            ]
+        ]
+    },
+    {
+        "id": "903bc3eb.cbee3",
+        "type": "SmartMesh in",
+        "z": "d5c45f60.19616",
+        "name": "",
+        "subscriptionType": "notification",
+        "smartMeshManager": "9cab7605.3542",
+        "x": 270,
+        "y": 400,
+        "wires": [
+            [
+                "1bc2ed92.69ca2a",
+                "299e48a9.1caf68"
+            ]
+        ]
+    },
+    {
+        "id": "8d7a474.76da2b8",
+        "type": "SmartMesh in",
+        "z": "d5c45f60.19616",
+        "name": "",
+        "subscriptionType": "result",
+        "smartMeshManager": "9cab7605.3542",
+        "x": 272.5,
+        "y": 205.5,
+        "wires": [
+            [
+                "e8bf356e.e2e668"
+            ]
+        ]
+    },
+    {
+        "id": "6f17cf2c.1ed02",
+        "type": "SmartMesh out",
+        "z": "d5c45f60.19616",
+        "name": "",
+        "smartMeshManager": "9cab7605.3542",
+        "x": 470,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "299e48a9.1caf68",
+        "type": "CANDY EGG websocket out",
+        "z": "d5c45f60.19616",
+        "name": "Notifications",
+        "account": "b2272106.e1af5",
+        "path": "/notifications",
+        "wholemsg": "false",
+        "x": 470,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "5426327e.974a0c",
+        "type": "debug",
+        "z": "d5c45f60.19616",
+        "name": "Data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 450,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3d1f69d8.d2704e",
+        "type": "SmartMesh in",
+        "z": "d5c45f60.19616",
+        "name": "",
+        "subscriptionType": "data",
+        "smartMeshManager": "9cab7605.3542",
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "5426327e.974a0c",
+                "456dceaf.f3db88"
+            ]
+        ]
+    },
+    {
+        "id": "456dceaf.f3db88",
+        "type": "CANDY EGG websocket out",
+        "z": "d5c45f60.19616",
+        "name": "Data",
+        "account": "b2272106.e1af5",
+        "path": "/data",
+        "wholemsg": "false",
+        "x": 450,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "23bb36e7.0c901a",
+        "type": "CANDY EGG websocket in",
+        "z": "d5c45f60.19616",
+        "name": "Mote Control",
+        "account": "b2272106.e1af5",
+        "path": "/control",
+        "wholemsg": "false",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "6f17cf2c.1ed02"
+            ]
+        ]
+    },
+    {
+        "id": "9cab7605.3542",
+        "type": "SmartMesh manager",
+        "z": "",
+        "enabled": true,
+        "serialport": "/dev/DC2274A-A.API",
+        "identifier": "candy-pi-lite-plus",
+        "redirectSmartMeshManagerLog": true
+    },
+    {
+        "id": "b2272106.e1af5",
+        "type": "CANDY EGG account",
+        "z": "",
+        "name": "CANDY EGG Account",
+        "accountId": "",
+        "secure": true
+    }
+]
