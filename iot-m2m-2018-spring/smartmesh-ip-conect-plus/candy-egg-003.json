@@ -1,0 +1,134 @@
+[
+    {
+        "id": "3639bc36.bf117c",
+        "type": "tab",
+        "label": "SmartMesh Notifications",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f03aedc0.047438",
+        "type": "CANDY RED websocket in",
+        "z": "3639bc36.bf117c",
+        "name": "Notifications Entry",
+        "server": "be7d8b60.df1748",
+        "wholemsg": "false",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "c8ed809e.0b1fb"
+            ]
+        ]
+    },
+    {
+        "id": "c8ed809e.0b1fb",
+        "type": "switch",
+        "z": "3639bc36.bf117c",
+        "name": "Identify Event Type",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "eventMoteLost",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "eventMoteJoin",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "2452bcf6.1112cc"
+            ],
+            [
+                "fa429d3a.3af14"
+            ]
+        ]
+    },
+    {
+        "id": "35a68ef9.3aac02",
+        "type": "ui_text",
+        "z": "3639bc36.bf117c",
+        "group": "3a465179.18427e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 630,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "2452bcf6.1112cc",
+        "type": "template",
+        "z": "3639bc36.bf117c",
+        "name": "Lost Message",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "モート「{{payload.mac}}」が離脱しました。",
+        "output": "str",
+        "x": 500,
+        "y": 140,
+        "wires": [
+            [
+                "35a68ef9.3aac02"
+            ]
+        ]
+    },
+    {
+        "id": "fa429d3a.3af14",
+        "type": "template",
+        "z": "3639bc36.bf117c",
+        "name": "Join Message",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "モート「{{payload.mac}}」が加わりました。",
+        "output": "str",
+        "x": 500,
+        "y": 180,
+        "wires": [
+            [
+                "35a68ef9.3aac02"
+            ]
+        ]
+    },
+    {
+        "id": "be7d8b60.df1748",
+        "type": "CANDY RED websocket listener",
+        "z": "",
+        "path": "/notifications",
+        "ignoreRejectError": "false"
+    },
+    {
+        "id": "3a465179.18427e",
+        "type": "ui_group",
+        "z": "",
+        "name": "SmartMesh IP™",
+        "tab": "92ded0ec.e1ef68",
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "92ded0ec.e1ef68",
+        "type": "ui_tab",
+        "z": "",
+        "name": "SmartMesh IP™ + 3G/LTE(Cat.4)",
+        "icon": "dashboard",
+        "order": 3
+    }
+]

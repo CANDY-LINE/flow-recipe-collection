@@ -1,22 +1,30 @@
-candy-pi-lite-hands-on-sense-hat
+flow-recipe-collection
 ===
 
-This project contains [CANDY RED](https://github.com/CANDY-LINE/candy-red) and [CANDY EGG](https://translate.google.com/translate?hl=en&sl=ja&tl=en&u=https%3A%2F%2Fwww.candy-line.io%2F製品一覧%2Fcandy-red-egg%2F) flow files allowing you to create a simple end-to-end Cloud and Device IoT application using [CANDY Pi Lite](https://translate.google.com/translate?hl=ja&sl=auto&tl=en&u=https%3A%2F%2Fwww.candy-line.io%2F製品一覧%2Fcandy-pi-lite%2F), a 3G/LTE board running on top of [Raspberry Pi 3 Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/).
+[![GitHub release](https://img.shields.io/github/release/CANDY-LINE/flow-recipe-collection.svg)](https://github.com/CANDY-LINE/flow-recipe-collection/releases/latest)
+[![License ASL 2.0](https://img.shields.io/github/license/CANDY-LINE/flow-recipe-collection.svg)](https://opensource.org/licenses/Apache-2.0)
 
-The following flow files are available.
 
-- `candy-red-*.json` ... are flow files for [CANDY RED](https://github.com/CANDY-LINE/candy-red), a [Node-RED](https://github.com/node-red/node-red) based device application builder and runtime
-- `candy-egg-*.json` ... are flow files for [CANDY EGG](https://translate.google.com/translate?hl=en&sl=ja&tl=en&u=https%3A%2F%2Fwww.candy-line.io%2F製品一覧%2Fcandy-red-egg%2F), a [Node-RED](https://github.com/node-red/node-red) based cloud application builder and runtime
+`CANDY RED`と`CANDY EGG`を使ったフローのレシピを集めたプロジェクトです。
 
-The prerequisite hardware/devices are as follows.
+フローファイルをインポートして、個別の設定を反映させれば動かすことが可能です。
 
-- [Raspberry Pi 3 Model B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/)
-- [Sense HAT](https://www.raspberrypi.org/products/sense-hat/)
-- [CANDY Pi Lite](https://translate.google.com/translate?hl=ja&sl=auto&tl=en&u=https%3A%2F%2Fwww.candy-line.io%2F製品一覧%2Fcandy-pi-lite%2F) 3G (or LTE, available only in Japan)
-- USB cable (micro USB to USB) for power supply or AC adaptor(OD:5.5mm x ID:2.1mm)
-- Ethernet cable (if any) to access Raspberry Pi 3 via intranet
+## 内容
 
-## Revision History
+1. [SenseHATを使ったハンズオン](hands-on-sensehat/README.md)
+1. [IoT/M2M展 2018春 デモ展示](iot-m2m-2018-spring/README.md)
+
+## ご注意
+
+- 本プロジェクトの`CANDY EGG`のフローファイルは、`Node-RED`及びそのほかの`Node-RED`ベースのソフトウェアやサービスでは動作しません。
+- 本プロジェクトの`CANDY RED`のフローファイルは、`CANDY EGG`、`Node-RED`及びそのほかの`Node-RED`ベースのソフトウェアやサービスでは動作しません。
+- ハンズオンの以前のURLで404になる場合があります。その場合は、`hands-on-sensehat`フォルダーを参照してください。
+
+# 履歴
+
+* 2.0.0
+  - プロジェクト名を変更
+  - ハンズオン以外のフローも追加
 
 * 1.1.0
   - Add a fixed ip address config file

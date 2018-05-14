@@ -1,0 +1,292 @@
+[
+    {
+        "id": "5ba9cd.fccd8634",
+        "type": "tab",
+        "label": "conect+ to CANDY EGG",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b638ef6e.85ddb8",
+        "type": "http in",
+        "z": "5ba9cd.fccd8634",
+        "name": "conect+ Entry",
+        "url": "/mote",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "e4e10b2c.ac0f3",
+                "6fdf734e.23cdcc",
+                "2a54ad80.134782"
+            ]
+        ]
+    },
+    {
+        "id": "6fdf734e.23cdcc",
+        "type": "http response",
+        "z": "5ba9cd.fccd8634",
+        "name": "conect+ Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e4e10b2c.ac0f3",
+        "type": "debug",
+        "z": "5ba9cd.fccd8634",
+        "name": "conect+ API Debug",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 550,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "bc57d060.e5e2f",
+        "type": "CANDY RED websocket out",
+        "z": "5ba9cd.fccd8634",
+        "name": "Mote Control",
+        "server": "be258f81.b9a54",
+        "wholemsg": "false",
+        "x": 570,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "2a54ad80.134782",
+        "type": "switch",
+        "z": "5ba9cd.fccd8634",
+        "name": "Resolve Mote MAC",
+        "property": "payload.key",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "mote1Led",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "mote2Led",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "mote3Led",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "mote4Led",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "mote5Led",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 5,
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "59a8e7a3.95bfc8"
+            ],
+            [
+                "8a587116.1463d8"
+            ],
+            [
+                "1a42d299.d36d95"
+            ],
+            [
+                "dad1b8d9.20ca7"
+            ],
+            [
+                "3de713a7.6e801c"
+            ]
+        ]
+    },
+    {
+        "id": "d861165c.ed91e",
+        "type": "template",
+        "z": "5ba9cd.fccd8634",
+        "name": "Build Control Command",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{\n   \"mac\": \"{{payload.mac}}\",\n   \"id\":\"led_{{payload.value1}}\",\n   \"command\":\"PUT\",\n   \"address\":\"/3/2\",\n   \"tags\":[\n      {\n         \"tag\":0,\n         \"format\":\"byte\",\n         \"value\":\"{{payload.value1}}\"\n      }\n   ]\n}",
+        "output": "json",
+        "x": 610,
+        "y": 240,
+        "wires": [
+            [
+                "3fa2d27c.13a936",
+                "bc57d060.e5e2f"
+            ]
+        ]
+    },
+    {
+        "id": "59a8e7a3.95bfc8",
+        "type": "change",
+        "z": "5ba9cd.fccd8634",
+        "name": "Mote1 MAC",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mac",
+                "pt": "msg",
+                "to": "ff-ff-ff-ff-ff-ff-ff-6f",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 180,
+        "wires": [
+            [
+                "d861165c.ed91e"
+            ]
+        ]
+    },
+    {
+        "id": "3fa2d27c.13a936",
+        "type": "debug",
+        "z": "5ba9cd.fccd8634",
+        "name": "Command Debug",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 590,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "8a587116.1463d8",
+        "type": "change",
+        "z": "5ba9cd.fccd8634",
+        "name": "Mote2 MAC",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mac",
+                "pt": "msg",
+                "to": "ff-ff-ff-ff-ff-ff-ff-a8",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 220,
+        "wires": [
+            [
+                "d861165c.ed91e"
+            ]
+        ]
+    },
+    {
+        "id": "1a42d299.d36d95",
+        "type": "change",
+        "z": "5ba9cd.fccd8634",
+        "name": "Mote3 MAC",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mac",
+                "pt": "msg",
+                "to": "ff-ff-ff-ff-ff-ff-ff-a8",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 260,
+        "wires": [
+            [
+                "d861165c.ed91e"
+            ]
+        ]
+    },
+    {
+        "id": "dad1b8d9.20ca7",
+        "type": "change",
+        "z": "5ba9cd.fccd8634",
+        "name": "Mote4 MAC",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mac",
+                "pt": "msg",
+                "to": "ff-ff-ff-ff-ff-ff-ff-a8",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "d861165c.ed91e"
+            ]
+        ]
+    },
+    {
+        "id": "3de713a7.6e801c",
+        "type": "change",
+        "z": "5ba9cd.fccd8634",
+        "name": "Mote5 MAC",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.mac",
+                "pt": "msg",
+                "to": "ff-ff-ff-ff-ff-ff-ff-a8",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 340,
+        "wires": [
+            [
+                "d861165c.ed91e"
+            ]
+        ]
+    },
+    {
+        "id": "be258f81.b9a54",
+        "type": "CANDY RED websocket listener",
+        "z": "",
+        "path": "/control",
+        "ignoreRejectError": "false"
+    }
+]
