@@ -1,0 +1,434 @@
+[
+    {
+        "id": "482ca08b.3758",
+        "type": "tab",
+        "label": "カメラ撮影",
+        "disabled": false,
+        "info": "写真撮影を指示したり、撮影データを受け取ったりするPathは「/camera」です。\n"
+    },
+    {
+        "id": "3202f4d.b82d18c",
+        "type": "CANDY RED websocket out",
+        "z": "482ca08b.3758",
+        "name": "写真撮影",
+        "server": "bbdd53c4.6346f8",
+        "wholemsg": "false",
+        "x": 540,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "9649252d.87f5b",
+        "type": "ui_button",
+        "z": "482ca08b.3758",
+        "name": "",
+        "group": "1100a7d6.ff1dc",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ASUS Tinker Boardのカメラで撮影",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 200,
+        "y": 80,
+        "wires": [
+            [
+                "3202f4d.b82d18c"
+            ]
+        ]
+    },
+    {
+        "id": "c07e4fec.05e808",
+        "type": "CANDY RED websocket in",
+        "z": "482ca08b.3758",
+        "name": "撮影データを受け取る",
+        "server": "bbdd53c4.6346f8",
+        "wholemsg": "false",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "6763768.a27f188",
+                "955f9dab.1c86a"
+            ]
+        ]
+    },
+    {
+        "id": "94776ca7.e08998",
+        "type": "comment",
+        "z": "482ca08b.3758",
+        "name": "手動の撮影",
+        "info": "",
+        "x": 120,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b6fc3ec1.0a8af8",
+        "type": "comment",
+        "z": "482ca08b.3758",
+        "name": "撮影されたイメージの保存",
+        "info": "",
+        "x": 170,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "5e688abc.2516bc",
+        "type": "CANDY EGG mysql table out",
+        "z": "482ca08b.3758",
+        "table": "709b400a.579fc8",
+        "rowProperty": "payload",
+        "name": "イメージデータの保存",
+        "rowProeprty": "",
+        "x": 740,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6763768.a27f188",
+        "type": "change",
+        "z": "482ca08b.3758",
+        "name": "ペイロードの変形",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.image",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.tstamp",
+                "pt": "msg",
+                "to": "",
+                "tot": "date"
+            },
+            {
+                "t": "set",
+                "p": "payload.type",
+                "pt": "msg",
+                "to": "image/jpeg",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 431.5,
+        "y": 257.75,
+        "wires": [
+            [
+                "5e688abc.2516bc",
+                "4ecd821e.f3fca4"
+            ]
+        ]
+    },
+    {
+        "id": "3b6a2abe.0a8196",
+        "type": "CANDY EGG mysql table in",
+        "z": "482ca08b.3758",
+        "table": "709b400a.579fc8",
+        "name": "DBから最新イメージを取得",
+        "rowOffset": 0,
+        "maxRows": "1",
+        "orderBy": "tstamp",
+        "orderByDesc": true,
+        "filters": [],
+        "x": 460,
+        "y": 420,
+        "wires": [
+            [
+                "2d9fd42f.1837ac",
+                "3daf252c.fc8aca"
+            ]
+        ]
+    },
+    {
+        "id": "85831eb.e87eb6",
+        "type": "inject",
+        "z": "482ca08b.3758",
+        "name": "撮影画像の手動確認",
+        "topic": "",
+        "payload": "{}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 170,
+        "y": 420,
+        "wires": [
+            [
+                "3b6a2abe.0a8196"
+            ]
+        ]
+    },
+    {
+        "id": "2d9fd42f.1837ac",
+        "type": "debug",
+        "z": "482ca08b.3758",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 710,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "1c62b3a6.791a3c",
+        "type": "inject",
+        "z": "482ca08b.3758",
+        "name": "定期削除",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "x": 140,
+        "y": 540,
+        "wires": [
+            [
+                "f9ecce75.5a5e98"
+            ]
+        ]
+    },
+    {
+        "id": "4eefe3e.e02a89c",
+        "type": "CANDY EGG mysql",
+        "z": "482ca08b.3758",
+        "name": "削除実行",
+        "x": 700,
+        "y": 540,
+        "wires": [
+            [
+                "e0ec2d0d.4c22c8"
+            ]
+        ]
+    },
+    {
+        "id": "f9ecce75.5a5e98",
+        "type": "template",
+        "z": "482ca08b.3758",
+        "name": "1時間前のイメージを全削除",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "delete from images where tstamp is null or tstamp < ({{payload}} - 1000*60*60)",
+        "output": "str",
+        "x": 460,
+        "y": 540,
+        "wires": [
+            [
+                "4eefe3e.e02a89c"
+            ]
+        ]
+    },
+    {
+        "id": "e0ec2d0d.4c22c8",
+        "type": "debug",
+        "z": "482ca08b.3758",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "true",
+        "x": 930,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "ad87e1c3.1226a8",
+        "type": "ui_template",
+        "z": "482ca08b.3758",
+        "group": "1100a7d6.ff1dc",
+        "name": "ダッシュボードの画像表示",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "format": "<div layout=\"row\" layout-align=\"space-between\">\n    <img data-ng-src=\"data:{{ msg.payload.type }};base64,{{ msg.payload.image }}\" />\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 1220,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4ecd821e.f3fca4",
+        "type": "delay",
+        "z": "482ca08b.3758",
+        "name": "1秒のウェイト",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "3b6a2abe.0a8196"
+            ]
+        ]
+    },
+    {
+        "id": "40d422d8.33abf4",
+        "type": "function",
+        "z": "482ca08b.3758",
+        "name": "data URLに変換",
+        "func": "var row = msg.payload.rows[0];\ndelete msg.payload;\nmsg.payload = {\n    type: row.type,\n    image: row.image.toString('base64')\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 960,
+        "y": 360,
+        "wires": [
+            [
+                "ad87e1c3.1226a8",
+                "e0b9a514.2ab35"
+            ]
+        ]
+    },
+    {
+        "id": "e0b9a514.2ab35",
+        "type": "debug",
+        "z": "482ca08b.3758",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 1170,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "3daf252c.fc8aca",
+        "type": "switch",
+        "z": "482ca08b.3758",
+        "name": "イメージデータの確認",
+        "property": "payload.rows.length",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 740,
+        "y": 380,
+        "wires": [
+            [
+                "40d422d8.33abf4"
+            ],
+            [
+                "448b8756.4e828"
+            ]
+        ]
+    },
+    {
+        "id": "448b8756.4e828",
+        "type": "template",
+        "z": "482ca08b.3758",
+        "name": "イメージクリア",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "plain",
+        "template": "{\n  \"type\": \"image/jpeg\",\n  \"image\": null\n}\n",
+        "output": "json",
+        "x": 960,
+        "y": 400,
+        "wires": [
+            [
+                "ad87e1c3.1226a8"
+            ]
+        ]
+    },
+    {
+        "id": "955f9dab.1c86a",
+        "type": "debug",
+        "z": "482ca08b.3758",
+        "name": "",
+        "active": false,
+        "console": "false",
+        "complete": "false",
+        "x": 410,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "bbdd53c4.6346f8",
+        "type": "CANDY RED websocket listener",
+        "z": "",
+        "path": "/camera"
+    },
+    {
+        "id": "1100a7d6.ff1dc",
+        "type": "ui_group",
+        "z": "",
+        "name": "遠隔カメラ写真",
+        "tab": "d6d1af45.90eae8",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "709b400a.579fc8",
+        "type": "CANDY EGG mysql table",
+        "z": "",
+        "name": "images",
+        "columns": [
+            {
+                "name": "tstamp",
+                "dataType": "long",
+                "columnType": "filter"
+            },
+            {
+                "name": "type",
+                "dataType": "string",
+                "columnType": "filter"
+            },
+            {
+                "name": "image",
+                "dataType": "medium-blob",
+                "columnType": "value"
+            },
+            {
+                "name": "name",
+                "dataType": "string",
+                "columnType": "value"
+            }
+        ]
+    },
+    {
+        "id": "d6d1af45.90eae8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "カメラ + 4G/LTE",
+        "icon": "dashboard"
+    }
+]
