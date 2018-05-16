@@ -22,6 +22,9 @@ flow-recipe-collection
 
 # 履歴
 
+* 2.1.0
+  - EnOceanとASUS Tinker Boardカメラ撮影・顔認識デモを追加
+
 * 2.0.0
   - プロジェクト名を変更
   - ハンズオン以外のフローも追加
