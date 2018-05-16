@@ -1,0 +1,439 @@
+[
+    {
+        "id": "73cbc370.4944d4",
+        "type": "tab",
+        "label": "カメラ撮影・顔検出",
+        "disabled": false,
+        "info": "顔か目を検出すると写真をアップロードする。"
+    },
+    {
+        "id": "6abf1cb8.fa3864",
+        "type": "CANDY EGG websocket in",
+        "z": "73cbc370.4944d4",
+        "name": "クラウドからのトリガー",
+        "account": "c633f86c.d04778",
+        "path": "/camera",
+        "wholemsg": "false",
+        "x": 209.5,
+        "y": 235.25,
+        "wires": [
+            [
+                "bb035f6b.eca34",
+                "d4f104a3.7b2cc"
+            ]
+        ]
+    },
+    {
+        "id": "4b8cc537.f4e7ec",
+        "type": "CANDY EGG websocket out",
+        "z": "73cbc370.4944d4",
+        "name": "クラウドへアップロード",
+        "account": "c633f86c.d04778",
+        "path": "/camera",
+        "wholemsg": "false",
+        "x": 730,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "bb035f6b.eca34",
+        "type": "debug",
+        "z": "73cbc370.4944d4",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 529.5,
+        "y": 233.5,
+        "wires": []
+    },
+    {
+        "id": "d4f104a3.7b2cc",
+        "type": "exec",
+        "z": "73cbc370.4944d4",
+        "command": "/usr/bin/gst-launch-1.0",
+        "addpay": false,
+        "append": "v4l2src num-buffers=10 ! video/x-raw,format=NV12,width=320,height=240 ! jpegenc ! multifilesink location=/tmp/image.jpg",
+        "useSpawn": "true",
+        "timer": "",
+        "oldrc": false,
+        "name": "カメラ撮影",
+        "x": 322.5,
+        "y": 384.25,
+        "wires": [
+            [
+                "a508f821.6011c8"
+            ],
+            [
+                "68d5b839.31b1a8"
+            ],
+            [
+                "27daa2d0.582bd6"
+            ]
+        ]
+    },
+    {
+        "id": "a508f821.6011c8",
+        "type": "debug",
+        "z": "73cbc370.4944d4",
+        "name": "stdout",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 537.5,
+        "y": 337,
+        "wires": []
+    },
+    {
+        "id": "1fc8abc0.d2d0ec",
+        "type": "inject",
+        "z": "73cbc370.4944d4",
+        "name": "テスト用トリガー",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 187.5,
+        "y": 300.25,
+        "wires": [
+            [
+                "d4f104a3.7b2cc"
+            ]
+        ]
+    },
+    {
+        "id": "68d5b839.31b1a8",
+        "type": "debug",
+        "z": "73cbc370.4944d4",
+        "name": "stderr",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 535,
+        "y": 377,
+        "wires": []
+    },
+    {
+        "id": "27daa2d0.582bd6",
+        "type": "switch",
+        "z": "73cbc370.4944d4",
+        "name": "成功か？",
+        "property": "payload.code",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 311.5,
+        "y": 454.75,
+        "wires": [
+            [
+                "e692a833.da15b8"
+            ],
+            [
+                "68d5b839.31b1a8"
+            ]
+        ]
+    },
+    {
+        "id": "e692a833.da15b8",
+        "type": "file in",
+        "z": "73cbc370.4944d4",
+        "name": "画像読み込み",
+        "filename": "/tmp/image.jpg",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "x": 538.5,
+        "y": 450.25,
+        "wires": [
+            [
+                "30b31916.94b996",
+                "236ac70f.3044b8"
+            ]
+        ]
+    },
+    {
+        "id": "16454341.fbc9e5",
+        "type": "EnOcean in",
+        "z": "73cbc370.4944d4",
+        "name": "",
+        "originatorId": "",
+        "alwaysStartAsLearningMode": false,
+        "eepType": "d5-00-01",
+        "addEepType": false,
+        "ignoreLRNBit": true,
+        "enoceanPort": "8db8d6d7.124888",
+        "useString": false,
+        "showEnOceanWarning": true,
+        "x": 154.5,
+        "y": 55.25,
+        "wires": [
+            [
+                "58751e4b.09c578",
+                "62f076bc.b5c76"
+            ]
+        ]
+    },
+    {
+        "id": "58751e4b.09c578",
+        "type": "debug",
+        "z": "73cbc370.4944d4",
+        "name": "EnOcean",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 172.5,
+        "y": 132.5,
+        "wires": []
+    },
+    {
+        "id": "62f076bc.b5c76",
+        "type": "switch",
+        "z": "73cbc370.4944d4",
+        "name": "ドアが開いた時",
+        "property": "payload.co",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 367.5,
+        "y": 54.75,
+        "wires": [
+            [
+                "d4f104a3.7b2cc"
+            ]
+        ]
+    },
+    {
+        "id": "30b31916.94b996",
+        "type": "opencv",
+        "z": "73cbc370.4944d4",
+        "detect": "FACE_CASCADE",
+        "output": "json",
+        "name": "顔を検出",
+        "x": 200,
+        "y": 540,
+        "wires": [
+            [
+                "c8fb6d18.0a955",
+                "3ae5dd31.fe4c82"
+            ]
+        ]
+    },
+    {
+        "id": "c8fb6d18.0a955",
+        "type": "switch",
+        "z": "73cbc370.4944d4",
+        "name": "検出できたか？",
+        "property": "payload.length",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 320,
+        "y": 600,
+        "wires": [
+            [
+                "a44c2f59.8ba57",
+                "ddb03e0e.04083"
+            ]
+        ]
+    },
+    {
+        "id": "a44c2f59.8ba57",
+        "type": "file in",
+        "z": "73cbc370.4944d4",
+        "name": "画像読み込み",
+        "filename": "/tmp/image.jpg",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "x": 540,
+        "y": 600,
+        "wires": [
+            [
+                "4b8cc537.f4e7ec"
+            ]
+        ]
+    },
+    {
+        "id": "3ae5dd31.fe4c82",
+        "type": "debug",
+        "z": "73cbc370.4944d4",
+        "name": "OpenCV Result",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 420,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "236ac70f.3044b8",
+        "type": "base64",
+        "z": "73cbc370.4944d4",
+        "name": "",
+        "action": "",
+        "property": "payload",
+        "x": 640,
+        "y": 520,
+        "wires": [
+            [
+                "9e360ed9.4da1c8"
+            ]
+        ]
+    },
+    {
+        "id": "9e360ed9.4da1c8",
+        "type": "ui_template",
+        "z": "73cbc370.4944d4",
+        "group": "6f760d9.2afb4f4",
+        "name": "",
+        "order": 2,
+        "width": "6",
+        "height": "7",
+        "format": "<div layout=\"row\" layout-align=\"space-between\">\n    <img data-ng-src=\"data:image/jpeg;base64,{{ msg.payload }}\" />\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 800,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "82dcafbb.e943c",
+        "type": "ui_button",
+        "z": "73cbc370.4944d4",
+        "name": "",
+        "group": "6f760d9.2afb4f4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "撮影",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 150,
+        "y": 360,
+        "wires": [
+            [
+                "d4f104a3.7b2cc"
+            ]
+        ]
+    },
+    {
+        "id": "4d94070e.d92ae8",
+        "type": "ui_toast",
+        "z": "73cbc370.4944d4",
+        "position": "top right",
+        "displayTime": "4",
+        "highlight": "",
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "topic": "",
+        "name": "検出結果通知",
+        "x": 620,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "ddb03e0e.04083",
+        "type": "change",
+        "z": "73cbc370.4944d4",
+        "name": "通知メッセージ設定",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "顔を検出しました！",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 680,
+        "wires": [
+            [
+                "4d94070e.d92ae8"
+            ]
+        ]
+    },
+    {
+        "id": "c633f86c.d04778",
+        "type": "CANDY EGG account",
+        "z": "",
+        "name": "CANDY EGG Account",
+        "accountId": "",
+        "secure": true
+    },
+    {
+        "id": "8db8d6d7.124888",
+        "type": "EnOcean Port",
+        "z": "",
+        "serialPort": "/dev/enocean"
+    },
+    {
+        "id": "6f760d9.2afb4f4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Default",
+        "tab": "a2c36f9e.0c9ff8",
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "a2c36f9e.0c9ff8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    }
+]
