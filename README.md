@@ -9,6 +9,8 @@ flow-recipe-collection
 
 フローファイルをインポートして、個別の設定を反映させれば動かすことが可能です。
 
+このフローへの質問などは、[公開フォーラム](https://forums.candy-line.io)で受け付けています。
+
 ## 内容
 
 1. [SenseHATを使ったハンズオン](hands-on-sensehat/README.md)
