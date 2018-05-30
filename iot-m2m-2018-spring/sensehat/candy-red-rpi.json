@@ -1,0 +1,136 @@
+[
+    {
+        "id": "c21f91e0.b2ec2",
+        "type": "tab",
+        "label": "SenseHAT",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9ae07dbe.d51ab8",
+        "type": "rpi-sensehat in",
+        "z": "c21f91e0.b2ec2",
+        "name": "",
+        "motion": false,
+        "env": true,
+        "stick": false,
+        "x": 200,
+        "y": 120,
+        "wires": [
+            [
+                "d7218775.99f1d"
+            ]
+        ]
+    },
+    {
+        "id": "2e931233.c7a1b6",
+        "type": "rpi-sensehat out",
+        "z": "c21f91e0.b2ec2",
+        "name": "",
+        "x": 210,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f95834e2.0ec6b8",
+        "type": "CANDY EGG websocket in",
+        "z": "c21f91e0.b2ec2",
+        "name": "",
+        "account": "8e3ed58a.8ecd9",
+        "path": "/lcd",
+        "wholemsg": "false",
+        "x": 200,
+        "y": 240,
+        "wires": [
+            [
+                "46ee6c4e.7f5e1c"
+            ]
+        ]
+    },
+    {
+        "id": "46ee6c4e.7f5e1c",
+        "type": "change",
+        "z": "c21f91e0.b2ec2",
+        "name": "メッセージの変形",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.lcd_color",
+                "pt": "msg",
+                "to": "color",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.lcd_speed",
+                "pt": "msg",
+                "to": "speed",
+                "tot": "msg"
+            },
+            {
+                "t": "move",
+                "p": "payload.lcd_text",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 340,
+        "wires": [
+            [
+                "2e931233.c7a1b6"
+            ]
+        ]
+    },
+    {
+        "id": "e81368.48702498",
+        "type": "debug",
+        "z": "c21f91e0.b2ec2",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 460,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "d7218775.99f1d",
+        "type": "batch",
+        "z": "c21f91e0.b2ec2",
+        "name": "",
+        "mode": "count",
+        "count": 10,
+        "overlap": 0,
+        "interval": 10,
+        "allowEmptySequence": false,
+        "topics": [
+            {
+                "topic": ""
+            }
+        ],
+        "x": 270,
+        "y": 180,
+        "wires": [
+            [
+                "e81368.48702498"
+            ]
+        ]
+    },
+    {
+        "id": "8e3ed58a.8ecd9",
+        "type": "CANDY EGG account",
+        "z": "",
+        "name": "",
+        "accountId": "",
+        "secure": true
+    }
+]

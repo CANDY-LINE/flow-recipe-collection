@@ -1,0 +1,359 @@
+[
+    {
+        "id": "9d015dde.4e7f18",
+        "type": "tab",
+        "label": "LCD表示",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c313dde1.8a8d9",
+        "type": "CANDY RED websocket out",
+        "z": "9d015dde.4e7f18",
+        "name": "色とスピードと文字を送信",
+        "server": "cdb86c71.f3c88",
+        "wholemsg": "false",
+        "x": 600,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "16c84676.5c56ba",
+        "type": "ui_text_input",
+        "z": "9d015dde.4e7f18",
+        "name": "",
+        "label": "LCD表示文字列",
+        "group": "815e607b.a659f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "lcd_text",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "90afa7fe.6e30b"
+            ]
+        ]
+    },
+    {
+        "id": "5ec00fa3.60d11",
+        "type": "ui_colour_picker",
+        "z": "9d015dde.4e7f18",
+        "name": "",
+        "label": "文字の色",
+        "group": "815e607b.a659f",
+        "format": "hex",
+        "outformat": "string",
+        "showSwatch": true,
+        "showPicker": false,
+        "showValue": true,
+        "showAlpha": false,
+        "showLightness": true,
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "lcd_color",
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "90afa7fe.6e30b"
+            ]
+        ]
+    },
+    {
+        "id": "90afa7fe.6e30b",
+        "type": "Cache out",
+        "z": "9d015dde.4e7f18",
+        "name": "",
+        "cache": "2b1bcfe1.5701e8",
+        "keyType": "msg",
+        "keyProperty": "topic",
+        "valueType": "msg",
+        "valueProperty": "payload",
+        "ttlType": "msg",
+        "ttlProperty": "0",
+        "useString": false,
+        "x": 370,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f1eb716f.f10b4",
+        "type": "ui_button",
+        "z": "9d015dde.4e7f18",
+        "name": "",
+        "group": "815e607b.a659f",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "文字を表示！",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "lcd_text",
+        "x": 140,
+        "y": 220,
+        "wires": [
+            [
+                "abcdb788.e8f36",
+                "652522bb.b94ddc"
+            ]
+        ]
+    },
+    {
+        "id": "abcdb788.e8f36",
+        "type": "Cache in",
+        "z": "9d015dde.4e7f18",
+        "name": "",
+        "cache": "2b1bcfe1.5701e8",
+        "keyType": "msg",
+        "keyProperty": "topic",
+        "valueType": "msg",
+        "valueProperty": "payload",
+        "useString": false,
+        "x": 350,
+        "y": 220,
+        "wires": [
+            [
+                "f5999b06.53f83"
+            ]
+        ]
+    },
+    {
+        "id": "f5999b06.53f83",
+        "type": "join",
+        "z": "9d015dde.4e7f18",
+        "name": "色とスピードと文字を統合",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "3",
+        "x": 560,
+        "y": 220,
+        "wires": [
+            [
+                "c313dde1.8a8d9"
+            ]
+        ]
+    },
+    {
+        "id": "652522bb.b94ddc",
+        "type": "change",
+        "z": "9d015dde.4e7f18",
+        "name": "色を取得",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "lcd_color",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 160,
+        "y": 280,
+        "wires": [
+            [
+                "82947dd9.ef4f8",
+                "e7f15541.3be7b8"
+            ]
+        ]
+    },
+    {
+        "id": "82947dd9.ef4f8",
+        "type": "Cache in",
+        "z": "9d015dde.4e7f18",
+        "name": "",
+        "cache": "2b1bcfe1.5701e8",
+        "keyType": "msg",
+        "keyProperty": "topic",
+        "valueType": "msg",
+        "valueProperty": "payload",
+        "useString": false,
+        "x": 350,
+        "y": 280,
+        "wires": [
+            [
+                "f5999b06.53f83"
+            ]
+        ]
+    },
+    {
+        "id": "362189fe.9e5216",
+        "type": "inject",
+        "z": "9d015dde.4e7f18",
+        "name": "クリア",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "16c84676.5c56ba"
+            ]
+        ]
+    },
+    {
+        "id": "80ee5127.0bbd4",
+        "type": "ui_slider",
+        "z": "9d015dde.4e7f18",
+        "name": "",
+        "label": "表示スピード",
+        "group": "815e607b.a659f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "topic": "lcd_speed",
+        "min": "1",
+        "max": "5",
+        "step": 1,
+        "x": 370,
+        "y": 80,
+        "wires": [
+            [
+                "90afa7fe.6e30b"
+            ]
+        ]
+    },
+    {
+        "id": "bced15de.f409e8",
+        "type": "inject",
+        "z": "9d015dde.4e7f18",
+        "name": "クリア",
+        "topic": "",
+        "payload": "3",
+        "payloadType": "num",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 360,
+        "y": 20,
+        "wires": [
+            [
+                "80ee5127.0bbd4"
+            ]
+        ]
+    },
+    {
+        "id": "abb95ced.44a29",
+        "type": "inject",
+        "z": "9d015dde.4e7f18",
+        "name": "クリア",
+        "topic": "",
+        "payload": "#ffffff",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "x": 120,
+        "y": 20,
+        "wires": [
+            [
+                "5ec00fa3.60d11"
+            ]
+        ]
+    },
+    {
+        "id": "e7f15541.3be7b8",
+        "type": "change",
+        "z": "9d015dde.4e7f18",
+        "name": "スピードを取得",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "lcd_speed",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 180,
+        "y": 340,
+        "wires": [
+            [
+                "78954baa.023744"
+            ]
+        ]
+    },
+    {
+        "id": "78954baa.023744",
+        "type": "Cache in",
+        "z": "9d015dde.4e7f18",
+        "name": "",
+        "cache": "2b1bcfe1.5701e8",
+        "keyType": "msg",
+        "keyProperty": "topic",
+        "valueType": "msg",
+        "valueProperty": "payload",
+        "useString": false,
+        "x": 350,
+        "y": 340,
+        "wires": [
+            [
+                "f5999b06.53f83"
+            ]
+        ]
+    },
+    {
+        "id": "cdb86c71.f3c88",
+        "type": "CANDY RED websocket listener",
+        "z": "",
+        "path": "/lcd",
+        "ignoreRejectError": "false"
+    },
+    {
+        "id": "815e607b.a659f",
+        "type": "ui_group",
+        "z": "",
+        "name": "メッセージ表示",
+        "tab": "88de1956.5a6d4",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "2b1bcfe1.5701e8",
+        "type": "Cache",
+        "z": "",
+        "name": "",
+        "defaultTtl": "0",
+        "checkPeriod": ""
+    },
+    {
+        "id": "88de1956.5a6d4",
+        "type": "ui_tab",
+        "z": "",
+        "name": "SenseHAT + 3G",
+        "icon": "dashboard"
+    }
+]
