@@ -24,6 +24,9 @@ flow-recipe-collection
 
 # 履歴
 
+* 2.2.0
+  - SenseHATデモを追加
+
 * 2.1.0
   - EnOceanとASUS Tinker Boardカメラ撮影・顔認識デモを追加
 
